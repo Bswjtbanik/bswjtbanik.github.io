@@ -1,951 +1,771 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Biswajit Banik - iOS Developer & Designer</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Biswajit Banik — iOS Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<!-- Favicons
-================================================== -->
-<link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-<link rel="icon" href="img/favicon.ico" type="image/x-icon">
-<!-- / Favicons
-================================================== -->
+    :root {
+      --bg:        #0a0a0f;
+      --surface:   #111118;
+      --card:      #16161f;
+      --border:    #1e1e2e;
+      --accent:    #7c6aff;
+      --accent2:   #38bdf8;
+      --text:      #e2e2f0;
+      --muted:     #6b6b8a;
+      --swift:     #ff6b35;
+      --green:     #34d399;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Inter', sans-serif;
+    }
 
-<!-- >> CSS
-============================================================================== -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<!-- Google Web Fonts -->
-<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-<!-- Font Awesome -->
-<link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<!-- Nivo Lightbox -->
-<link href="vendor/nivo-lightbox/nivo-lightbox.css" rel="stylesheet">
-<link rel="stylesheet" href="vendor/nivo-lightbox/themes/default/default.css" type="text/css" />
-  <!-- /Nivo Lightbox -->
-  <!-- Perfect ScrollBar -->
-<link href="vendor/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet">
-<!-- owl carousel -->
-<link href="vendor/owl.carousel/owl-carousel/owl.carousel.css" rel="stylesheet">
-<link href="vendor/owl.carousel/owl-carousel/owl.theme.css" rel="stylesheet">
-<!-- Main Styles -->
-<link href="css/styles.css" rel="stylesheet">
+    html { scroll-behavior: smooth; }
 
-<!-- >> /CSS
-============================================================================== -->
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-family: var(--mono);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 80px 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(124,106,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,106,255,0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,106,255,0.12) 0%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 780px; width: 100%;
+    }
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: rgba(124,106,255,0.1);
+      border: 1px solid rgba(124,106,255,0.25);
+      padding: 4px 14px;
+      border-radius: 100px;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.08em;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      font-family: var(--sans);
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #6855e8; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .stat-num {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      font-family: var(--mono);
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+
+    /* SECTIONS */
+    section { padding: 100px 2rem; }
+    .container { max-width: 1000px; margin: 0 auto; }
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .section-desc { color: var(--muted); max-width: 520px; margin-bottom: 3rem; }
+
+    /* ABOUT */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+    .about-text p strong { color: var(--text); }
+    .tech-stack { }
+    .stack-title {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent2);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      padding: 5px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--card);
+      transition: all 0.2s;
+    }
+    .tag:hover { border-color: var(--accent); color: var(--accent); }
+    .tag.swift { border-color: rgba(255,107,53,0.3); color: var(--swift); }
+    .tag.blue  { border-color: rgba(56,189,248,0.3); color: var(--accent2); }
+    .tag.green { border-color: rgba(52,211,153,0.3); color: var(--green); }
+
+    /* EXPERIENCE */
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 16px; top: 8px; bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .timeline-item {
+      display: flex; gap: 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .timeline-dot {
+      width: 33px; height: 33px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 2px solid var(--accent);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem;
+      color: var(--accent);
+      font-family: var(--mono);
+      z-index: 1;
+    }
+    .timeline-body {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      flex: 1;
+      transition: border-color 0.2s;
+    }
+    .timeline-body:hover { border-color: var(--accent); }
+    .timeline-company {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-family: var(--mono);
+      margin-bottom: 0.25rem;
+    }
+    .timeline-role {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-period {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-family: var(--mono);
+      margin-bottom: 1rem;
+    }
+    .timeline-points { list-style: none; }
+    .timeline-points li {
+      color: var(--muted);
+      font-size: 0.9rem;
+      padding-left: 1.2rem;
+      position: relative;
+      margin-bottom: 0.4rem;
+      line-height: 1.6;
+    }
+    .timeline-points li::before {
+      content: '▸';
+      position: absolute; left: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+      top: 3px;
+    }
+    .timeline-tech { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 1rem; }
+    .chip {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: rgba(124,106,255,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(124,106,255,0.2);
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--surface); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      transition: all 0.25s;
+      cursor: default;
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(124,106,255,0.08);
+    }
+    .project-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    .project-name {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .project-desc {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+    .project-market {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent2);
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+    .skill-group {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .skill-group-title {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+    }
+    .skill-list { list-style: none; }
+    .skill-list li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      padding: 5px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .skill-list li:last-child { border-bottom: none; }
+    .skill-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--surface);
+      text-align: center;
+    }
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+    .contact-link {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: var(--mono);
+      transition: all 0.2s;
+    }
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    /* SCROLL ANIMATION */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .nav-links { display: none; }
+      .hero-stats { gap: 1.5rem; }
+      .contact-card { padding: 2rem 1.5rem; }
+    }
+  </style>
 </head>
 <body>
-<!-- Page Loader
-========================================================= -->
-<div class="loader-container" id="page-loader">
-  <div class="loading-wrapper">
-  	<div class="loader-animation" id="loader-animation">
-  		<span class="loader"><span class="loader-inner"></span></span>
-  	</div>
-    <!-- Edit With Your Name -->
-    <div class="loader-name" id="loader-name">
-      Biswajit <strong>Banik</strong>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">biswajit.dev</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">// available for senior iOS roles</div>
+    <h1>Biswajit <span>Banik</span><br>iOS Developer</h1>
+    <p class="hero-sub">
+      8+ years building secure, high-performance iOS apps across travel-tech, FinTech,
+      and banking — from Dhaka to Singapore to Malaysia.
+    </p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">Get in touch</a>
+      <a href="#experience" class="btn btn-ghost">View experience</a>
     </div>
-    <!-- /Edit With Your Name -->
-    <!-- Edit With Your Job -->
-    <p class="loader-job" id="loader-job">iOS Designer & Developer</p>
-    <!-- /Edit With Your Job -->
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">8<span>+</span></div>
+        <div class="stat-label">Years experience</div>
+      </div>
+      <div>
+        <div class="stat-num">15<span>+</span></div>
+        <div class="stat-label">Apps shipped</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">Markets (BD · SG · MY)</div>
+      </div>
+      <div>
+        <div class="stat-num">500<span>k+</span></div>
+        <div class="stat-label">End users reached</div>
+      </div>
+    </div>
   </div>
-</div>
-<!-- /End of Page loader
-========================================================= -->
-
-<!-- Main Content
-================================================== -->
-<section id="body" class="">
-
-	<div class="container">
-
-		<!-- MAIN MENU -->
-		<div class="main-menu" id="main-menu">
-			<ul class="main-menu-list">
-				<li><a href="#page-resume" class="link-home">Home</a></li>
-				<li><a href="#page-resume" class="link-page">Resume</a></li>
-				<li><a href="#page-skills" class="link-page">Skills</a></li>
-				<li><a href="#page-portfolio" class="link-page">Portfolio</a></li>
-				<li><a href="#page-blog" class="link-page">Blog</a></li>
-				<li><a href="#page-contact" class="link-page">Contact</a></li>
-			</ul>
-		</div>
-		<!-- /MAIN MENU -->
-
-		<!-- SECTION: vCard Body  -->
-		<div class="section-vcardbody section-home" id="section-home">
-			<!-- Profile pic-->
-			<div class="vcard-profile-pic">
-				<img src="img/pro.jpg" id="profile2"  alt=""/>
-				<img src="img/pro.jpg" id="profile1" class="profileActive" alt=""/>
-			</div>
-			<!-- /Profile pic -->
-			<!-- Description -->
-			<div class="vcard-profile-description">
-				<!-- Profile title -->
-        <h1 class="profile-title">Hi, i'm <span class="color1">Biswajit Banik!</span></h1>
-        <h2 class="profile-subtitle">iOS Developer &amp; Designer</h2>
-				<!-- /Profile Title -->
-				<!-- Description Text -->
-				<hr class="hr1">
-				<div class="vcard-profile-description-text">
-          <p>Professional iOS Developer &amp; UI/UX Designer.Works as a freelancer.</p>
-				</div>
-				<!--/ Description Text -->
-				<!-- Description feature -->
-				<div class="vcard-profile-description-feature">
-					<!-- item -->
-          <div class="vcard-profile-description-ft-item">
-            <p>Email: Bswjtbanik@gmail.com</p>
-          </div>
-					<!-- item -->
-				</div>
-				<!-- /Description feature -->
-			</div>
-			<!-- /Description -->
-			<!-- Footer -->
-			<div class="vcard-footer">
-				<!-- Social Icons -->
-				<div class="footer-social-icons">
-					<a href=""><i class="fa fa-instagram"></i></a>
-					<a href="https://github.com/Bswjtbanik"><i class="fa fa-github"></i></a>
-					<a href=""><i class="fa fa-twitter"></i></a>
-					<a href="https://www.linkedin.com/in/banik-biswajit-1b418972/"><i class="fa fa-linkedin"></i></a>
-					<a href=""><i class="fa fa-youtube"></i></a>
-				</div>
-				<!-- /Social Icons -->
-			</div>
-		</div>
-		<!-- /SECTION: vCard Body  -->
-
-		<!-- PAGE: RESUME -->
-		<div class="section-vcardbody section-page" id="page-resume">
-
-      <!-- SECTION: Education -->
-			<div class="section-education">
-				<!-- Section title -->
-	            <h2 class="section-title">Resume</h2>
-	            <!-- /Section title -->
-
-	            <!-- Buttons -->
-	            <div class="resume-buttons header-page-buttons">
-	            	<!-- Download CV button -->
-					<a href="#" class="btn btn-default btn-default2"><i class="fa fa-download"></i>&nbsp; Download my resume</a>
-	            	<!-- /Download CV button -->
-	            	<!-- Get in Touch button -->
-					<a href="#page-contact" class="btn btn-default btn-default2 link-page"><i class="fa fa-download"></i>&nbsp;  Get in Touch</a>
-	            	<!-- /Get in Touch button -->
-	            </div>
-	            <!-- /Buttons -->
-
-				<h2 class="section-title2"><i class="fa fa-university"></i>&nbsp; Education</h2>
-
-	            <!-- Resume Item -->
-				<div class="resume-item">
-					<!-- Graduation title -->
-                  	<h3 class="section-item-title-1">American International University- Bangladesh</h3>
-                  	<!-- /Graduation title -->
-                  	<!-- Graduation time -->
-                  	<h4 class="graduation-time">B.S. in Computer Science - <span class="graduation-date"></span></h4>
-                  	<!-- /Graduation time -->
-                  	<!-- content -->
-                  	<div class="graduation-description">
-                  		<ul>
-                    		<li> Bachelor of Science Degree in Computer Science</li>
-                    	</ul>
-                  	</div>
-                  	<!-- /Content -->
-				</div>
-	            <!-- /Resume Item -->
-
-	             <!-- Resume Item -->
-				<div class="resume-item">
-					<!-- Graduation title -->
-                  	<h3 class="section-item-title-1">Rampal College</h3>
-                  	<!-- /Graduation title -->
-                  	<!-- Graduation time -->
-                  	<h4 class="graduation-time">HSC</h4>
-                  	<!-- /Graduation time -->
-                  	<!-- content -->
-                  	<div class="graduation-description">
-                  		<ul>
-                    		<li>General Science</li>
-                    	</ul>
-                  	</div>
-                  	<!-- /Content -->
-				</div>
-	            <!-- /Resume Item -->
-			</div>
-			<!--/ SECTION: Education -->
-
-
-			<div class="section-education">
-	            <h2 class="section-title2"><i class="fa fa-flag"></i>&nbsp; Work Experience</h2>
-				      <div class="resume-item">
-
-                  	<h3 class="section-item-title-1">Itlink Corporation</h3>
-                  	<!-- /Work Place -->
-                  	<!-- Job Time -->
-                  	<h4 class="job">Jr.Software Engineer(.NET Developer)<span class="job-date"> April 2016 - Jan 2017</span></h4>
-                  	<!-- /Job Time-->
-                  	<!-- content -->
-                  	<div class="graduation-description">
-                  		<ul>
-                    		<li>Develop and support databases, reports, and spreadsheets according to the supervisors' requests</li>
-                    		<li>Research programmed solutions and develop appropriate technical documentation</li>
-                    	</ul>
-                  	</div>
-                  	<!-- /Content -->
-				</div>
-				<div class="resume-item">
-					<!-- Work Place -->
-                  	<h3 class="section-item-title-1">Codeboxer</h3>
-                  	<!-- /Work Place -->
-                  	<!-- Job Time -->
-                  	<h4 class="job">Technical Writter and Developer(Intern)<span class="job-date">Jan 2016 - March 2016</span></h4>
-                  	<!-- /Job Time-->
-                  	<!-- content -->
-                  	<div class="graduation-description">
-                        <ul>
-                            <li>Gave input for developing social media marketing process</li>
-
-                        </ul>
-                  	</div>
-      				</div>
-
-				</div>
-
-			<!--/ SECTION: WORK EXPERIENCE -->
-
-			<h2 class="section-title2"><i class="fa fa-commenting"></i>&nbsp; Testimonials</h2>
-
-			<!-- Testimonials -->
-			<div class="testimonials">
-				<!-- Testimonial Slides -->
-				<div class="testimonial-slides" id="testimonial-carousel">
-					<!-- item -->
-					<div class="testimonial-item">
-						<!-- Testimonial Content -->
-						<div class="testimonial-content">
-							<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat malesuada aliquet. Morbi vulputate nisl eget adipiscing consequat. Cras arcu tortor, ornare vel libero et, sagittis adipiscing leo. Aenean eget."</p>
-						</div>
-						<!-- /Testimonial Content -->
-						<!-- Testimonial Author -->
-						<div class="testimonial-credits">
-							<!-- picture -->
-							<div class="testimonial-picture">
-								<img src="img/team2.jpg" alt=""/>
-							</div>
-							<!-- /picture -->
-							<p class="testimonial-author">Melissa Alvarez</p>
-							<p class="testimonial-firm">Trexus Co.</p>
-						</div>
-						<!-- /Testimonial Author -->
-					</div>
-					<!-- /item -->
-					<!-- item -->
-					<div class="testimonial-item">
-						<!-- Testimonial Content -->
-						<div class="testimonial-content">
-							<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat malesuada aliquet. Morbi vulputate nisl eget adipiscing consequat. Cras arcu tortor, ornare vel libero et, sagittis adipiscing leo. Aenean eget."</p>
-						</div>
-						<!-- /Testimonial Content -->
-						<!-- Testimonial Author -->
-						<div class="testimonial-credits">
-							<!-- picture -->
-							<div class="testimonial-picture">
-								<img src="img/team1.jpg" alt=""/>
-							</div>
-							<!-- /picture -->
-							<p class="testimonial-author">John Rex</p>
-							<p class="testimonial-firm">DotRex Co.</p>
-						</div>
-						<!-- /Testimonial Author -->
-					</div>
-					<!-- /item -->
-					<!-- item -->
-					<div class="testimonial-item">
-						<!-- Testimonial Content -->
-						<div class="testimonial-content">
-							<p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat malesuada aliquet. Morbi vulputate nisl eget adipiscing consequat. Cras arcu tortor, ornare vel libero et, sagittis adipiscing leo. Aenean eget."</p>
-						</div>
-						<!-- /Testimonial Content -->
-						<!-- Testimonial Author -->
-						<div class="testimonial-credits">
-							<!-- picture -->
-							<div class="testimonial-picture">
-								<img src="img/team3.jpg" alt=""/>
-							</div>
-							<!-- /picture -->
-							<p class="testimonial-author">Jhonathan Smith</p>
-							<p class="testimonial-firm">RedWings Co.</p>
-						</div>
-						<!-- /Testimonial Author -->
-					</div>
-					<!-- /item -->
-				</div>
-				<!-- Testimonial Slides -->
-			</div>
-			<!-- /testimonials -->
-
-			<div class="page-footer">
-				<!-- Buttons -->
-	            <div class="resume-buttons">
-	            	<!-- Download CV button -->
-					<a href="#" class="btn btn-default btn-default2"><i class="fa fa-download"></i>&nbsp; Download my resume</a>
-	            	<!-- /Download CV button -->
-	            	<!-- Get in Touch button -->
-					<a href="#page-contact" class="btn btn-default btn-default2 link-page"><i class="fa fa-download"></i>&nbsp;  Get in Touch</a>
-	            	<!-- /Get in Touch button -->
-	            </div>
-	            <!-- /Buttons -->
-	            <!-- Quote -->
-	            <p class="footer-quote">"The best way to predict the future is to create it" <br/><i>Peter Drucker</i></p>
-	            <!-- /Quote -->
-			</div>
-
-		</div>
-		<!-- /PAGE: RESUME  -->
-
-		<!-- SECTION: SKILLS-->
-		<div class="section-vcardbody section-page" id="page-skills">
-			<div class="section-skills">
-
-				<!-- Section title -->
-	            <h2 class="section-title">SKILLS</h2>
-	            <!-- /Section title -->
-
-				 <!-- Subtitle -->
-	          	<h3 class="section-item-title-2"><i class="fa fa-code"></i>&nbsp;&nbsp; Code Skills</h3>
-	          	<!-- /Subtitle -->
-
-				<!-- Skils List -->
-				<ul class="skills-list">
-                    <!-- item-list -->
-                    <li>
-                      <div class="progress">
-                        <div class="progress-bar" data-percent="85%" role="progressbar" style="width: 85%;">
-                            <span class="sr-only">85% Complete</span>
-                        </div>
-                        <span class="progress-type">Swift</span>
-                        <span class="progress-completed">85%</span>
-                      </div>
-                    </li>
-                    <!-- /item list -->
-                    <!-- item-list -->
-                    <li>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-2" data-percent="75%" role="progressbar" style="width: 75%;">
-                            <span class="sr-only">75% Complete</span>
-                        </div>
-                        <span class="progress-type">Java/C++</span>
-                        <span class="progress-completed">75%</span>
-                      </div>
-                    </li>
-                    <!-- /item list -->
-                    <!-- item-list -->
-                    <li>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-3" data-percent="60%" role="progressbar" style="width: 60%;">
-                            <span class="sr-only">60% Complete</span>
-                        </div>
-                        <span class="progress-type">HTML5/CSS3</span>
-                        <span class="progress-completed">60%</span>
-                      </div>
-                    </li>
-                    <!-- /item list -->
-                  </ul>
-				<!-- /Skils List -->
-
-				 <!-- Subtitle -->
-	          	<h3 class="section-item-title-2"><i class="fa fa-laptop"></i>&nbsp;&nbsp; Software Skills</h3>
-	          	<!-- /Subtitle -->
-
-				<!-- Skils List -->
-				<ul class="skills-list">
-                    <!-- item-list -->
-                    <li>
-                      <div class="progress">
-                        <div class="progress-bar" data-percent="85%" role="progressbar" style="width: 85%;">
-                            <span class="sr-only">85% Complete</span>
-                        </div>
-                        <span class="progress-type">Adobe Experience Design</span>
-                        <span class="progress-completed">85%</span>
-                      </div>
-                    </li>
-                    <!-- /item list -->
-                    <!-- item-list -->
-                    <li>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-2" data-percent="75%" role="progressbar" style="width: 75%;">
-                            <span class="sr-only">75% Complete</span>
-                        </div>
-                        <span class="progress-type">Adobe Photoshop</span>
-                        <span class="progress-completed">75%</span>
-                      </div>
-                    </li>
-                    <!-- /item list -->
-                    <!-- item-list -->
-                    <li>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-3" data-percent="50%" role="progressbar" style="width: 50%;">
-                            <span class="sr-only">50% Complete</span>
-                        </div>
-                        <span class="progress-type">Adobe Illustrator</span>
-                        <span class="progress-completed">50%</span>
-                      </div>
-                    </li>
-                    <!-- /item list -->
-                  </ul>
-				<!-- /Skils List -->
-
-	            <!-- Subtitle -->
-	          	<h3 class="section-item-title-2"><i class="fa fa-users"></i>&nbsp;&nbsp; Professional Skills</h3>
-	          	<!-- /Subtitle -->
-
-				<!-- Skils List -->
-				<ul class="skills-list">
-                    <!-- item-list -->
-                    <li>
-                      <div class="progress">
-                        <div class="progress-bar" role="progressbar" data-percent="85%" style="width: 85%;">
-                            <span class="sr-only">85% Complete</span>
-                        </div>
-                        <span class="progress-type">Comunication</span>
-                        <span class="progress-completed">85%</span>
-                      </div>
-                    </li>
-                    <!-- /item list -->
-                    <!-- item-list -->
-                    <li>
-                      <div class="progress">
-                        <div class="progress-bar progress-bar-2" role="progressbar" data-percent="85%" style="width: 85%;">
-                            <span class="sr-only">85% Complete</span>
-                        </div>
-                        <span class="progress-type">Leadership</span>
-                        <span class="progress-completed">85%</span>
-                      </div>
-                    </li>
-                    <!-- /item list -->
-                    <!-- item-list -->
-                    <li>
-                      <div class="progress" title="Doing my best!">
-                        <div class="progress-bar progress-bar-3" role="progressbar" data-percent="85%" style="width: 85%;">
-                            <span class="sr-only">85% Complete</span>
-                        </div>
-                        <span class="progress-type">Confidence</span>
-                        <span class="progress-completed">85%</span>
-                      </div>
-                    </li>
-                    <!-- /item list -->
-                </ul>
-				<!-- /Skils List -->
-
-			</div>
-		</div>
-		<!-- /SECTION: SKILLS  -->
-
-		<!-- SECTION: PORTFOLIO-->
-		<div class="section-vcardbody section-page" id="page-portfolio">
-			<div class="section-portfolio">
-
-				<!-- Section title -->
-	            <h2 class="section-title">Portfolio</h2>
-	            <!-- /Section title -->
-
-	            <!-- Projects list -->
-				<div class="projects-list">
-
-					<!-- item -->
-					<div class="project-item">
-						<!-- ==> Put your thumbnail as a background -->
-						<a href="img/portfolio/p1.jpg" class="project-thumbnail nivobox" data-lightbox-gallery="portfolio" style="background-image: url('img/portfolio/thumb-p1.jpg');">
-							<!-- project-description -->
-							<div class="project-description-wrapper">
-								<div class="project-description">
-									<!-- project name -->
-									<h2 class="project-title">WeatherApp (iOS)</h2>
-									<!-- /project name -->
-									<span class="see-more">API Integration</span>
-								</div>
-							</div>
-							<!-- /project-description -->
-						</a>
-					</div>
-					<!-- /item -->
-
-					<!-- item -->
-					<div class="project-item">
-						<!-- ==> Put your thumbnail as a background -->
-						<a href="img/portfolio/p2.jpg" class="project-thumbnail nivobox" data-lightbox-gallery="portfolio" style="background-image: url('img/portfolio/thumb-p2.jpg');">
-							<!-- project-description -->
-							<div class="project-description-wrapper">
-								<div class="project-description">
-									<!-- project name -->
-									<h2 class="project-title">PokeFinder (iOS)</h2>
-									<!-- /project name -->
-									<span class="see-more">Pokemon GO App Extension</span>
-								</div>
-							</div>
-							<!-- /project-description -->
-						</a>
-					</div>
-					<!-- /item -->
-
-					<!-- item -->
-					<div class="project-item">
-						<!-- ==> Put your thumbnail as a background -->
-						<a href="img/portfolio/p3.jpg" class="project-thumbnail nivobox" data-lightbox-gallery="portfolio" style="background-image: url('img/portfolio/thumb-p3.jpg');">
-							<!-- project-description -->
-							<div class="project-description-wrapper">
-								<div class="project-description">
-									<!-- project name -->
-									<h2 class="project-title">Pokedex (iOS)</h2>
-									<!-- /project name -->
-									<span class="see-more">Pokedex App for Pokemon GO</span>
-								</div>
-							</div>
-							<!-- /project-description -->
-						</a>
-					</div>
-					<!-- /item -->
-
-					<!-- item -->
-					<div class="project-item">
-						<!-- ==> Put your thumbnail as a background -->
-						<a href="img/portfolio/p4.jpg" class="project-thumbnail nivobox" data-lightbox-gallery="portfolio" style="background-image: url('img/portfolio/thumb-p4.jpg');">
-							<!-- project-description -->
-							<div class="project-description-wrapper">
-								<div class="project-description">
-									<!-- project name -->
-									<h2 class="project-title">PartyRock (iOS)</h2>
-									<!-- /project name -->
-									<span class="see-more">YouTube Integration</span>
-								</div>
-							</div>
-							<!-- /project-description -->
-						</a>
-					</div>
-					<!-- /item -->
-
-					<!-- item -->
-					<div class="project-item">
-						<!-- ==> Put your thumbnail as a background -->
-						<a href="img/portfolio/p5.jpg" class="project-thumbnail nivobox" data-lightbox-gallery="portfolio" style="background-image: url('img/portfolio/thumb-p5.jpg');">
-							<!-- project-description -->
-							<div class="project-description-wrapper">
-								<div class="project-description">
-									<!-- project name -->
-									<h2 class="project-title">RetroCalculator (iOS)</h2>
-									<!-- /project name -->
-									<span class="see-more">Sound & Button Integration</span>
-								</div>
-							</div>
-							<!-- /project-description -->
-						</a>
-					</div>
-					<!-- /item -->
-
-					<!-- item -->
-					<div class="project-item">
-						<!-- ==> Put your thumbnail as a background -->
-						<a href="img/portfolio/p6.jpg" class="project-thumbnail nivobox" data-lightbox-gallery="portfolio" style="background-image: url('img/portfolio/thumb-p6.jpg');">
-							<!-- project-description -->
-							<div class="project-description-wrapper">
-								<div class="project-description">
-									<!-- project name -->
-									<h2 class="project-title">Slack Clone (Web)</h2>
-									<!-- /project name -->
-									<span class="see-more">Fully Functional Slack Web App</span>
-								</div>
-							</div>
-							<!-- /project-description -->
-						</a>
-					</div>
-					<!-- /item -->
-
-					<!-- item -->
-					<div class="project-item">
-						<!-- ==> Put your thumbnail as a background -->
-						<a href="img/portfolio/p7.jpg" class="project-thumbnail nivobox" data-lightbox-gallery="portfolio" style="background-image: url('img/portfolio/thumb-p7.jpg');">
-							<!-- project-description -->
-							<div class="project-description-wrapper">
-								<div class="project-description">
-									<!-- project name -->
-									<h2 class="project-title">Project Title</h2>
-									<!-- /project name -->
-									<span class="see-more">Project Tags</span>
-								</div>
-							</div>
-							<!-- /project-description -->
-						</a>
-					</div>
-					<!-- /item -->
-
-					<!-- item -->
-					<div class="project-item">
-						<!-- ==> Put your thumbnail as a background -->
-						<a href="img/portfolio/p8.jpg" class="project-thumbnail nivobox" data-lightbox-gallery="portfolio" style="background-image: url('img/portfolio/thumb-p8.jpg');">
-							<!-- project-description -->
-							<div class="project-description-wrapper">
-								<div class="project-description">
-									<!-- project name -->
-									<h2 class="project-title">Project Title</h2>
-									<!-- /project name -->
-									<span class="see-more">Project Tags</span>
-								</div>
-							</div>
-							<!-- /project-description -->
-						</a>
-					</div>
-					<!-- /item -->
-
-					<!-- item -->
-					<div class="project-item">
-						<!-- ==> Put your thumbnail as a background -->
-						<a href="img/portfolio/p9.jpg" class="project-thumbnail nivobox" data-lightbox-gallery="portfolio" style="background-image: url('img/portfolio/thumb-p9.jpg');">
-							<!-- project-description -->
-							<div class="project-description-wrapper">
-								<div class="project-description">
-									<!-- project name -->
-									<h2 class="project-title">Project Title</h2>
-									<!-- /project name -->
-									<span class="see-more">Project Tags</span>
-								</div>
-							</div>
-							<!-- /project-description -->
-						</a>
-					</div>
-					<!-- /item -->
-
-
-				</div>
-				<!-- /projects list -->
-
-			</div>
-		</div>
-		<!-- /SECTION: PORTFOLIO  -->
-
-		<!-- SECTION: BLOG-->
-		<div class="section-vcardbody section-page" id="page-blog">
-			<div class="section-blog">
-
-				<!-- Section title -->
-	            <h2 class="section-title">Blog</h2>
-	            <!-- /Section title -->
-
-				<!-- BLOG POSTS -->
-				<div class="blog-posts">
-					<!-- blog-item -->
-					<div class="blog-item">
-						<div class="blog-item-wrapper">
-							<!-- blog item thumbnail -->
-							<div class="blog-item-thumb">
-								<a href="single.html" class="loadPost"><img src="img/blog1.jpg" alt=""></a>
-							</div>
-							<!-- /blog item thumbnail -->
-							<!-- Blog item - infos -->
-							<div class="blog-item-infos">
-								<!-- blog-item-title -->
-								<div class="blog-item-title-wrapper">
-									<h2 class="blog-item-title title-border"><a href="single.html" class="loadPost">How to succeed in meetings</a></h2>
-								</div>
-								<!-- /blog-item-title -->
-								<!-- blog item - description -->
-								<div class="blog-item-description">
-									<p><a href="single.html" class="loadPost">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales varius sagittis. Proin a arcu vitae turpis congue facilisis. Quisque a lectus pretium, sagittis augue in, fringilla risus....</a></p>
-								</div>
-								<!-- /blog-item-description -->
-								<!-- blog item - link -->
-								<div class="blog-item-link">
-									<a href="single.html" class="btn btn-default loadPost">See More</a>
-								</div>
-								<!-- /blog item - link -->
-							</div>
-							<!-- /blog item - infos -->
-						</div>
-					</div>
-					<!-- /blog-item -->
-
-					<!-- blog-item -->
-					<div class="blog-item">
-						<div class="blog-item-wrapper">
-							<!-- blog item thumbnail -->
-							<div class="blog-item-thumb">
-								<a href="single.html" class="loadPost"><img src="img/blog2.jpg" alt=""></a>
-							</div>
-							<!-- /blog item thumbnail -->
-							<!-- Blog item - infos -->
-							<div class="blog-item-infos">
-								<!-- blog-item-title -->
-								<div class="blog-item-title-wrapper">
-									<h2 class="blog-item-title title-border"><a href="single.html" class="loadPost">10 tips to improve your laptop</a></h2>
-								</div>
-								<!-- /blog-item-title -->
-								<!-- blog item - description -->
-								<div class="blog-item-description">
-									<p><a href="single.html" class="loadPost">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales varius sagittis. Proin a arcu vitae turpis congue facilisis. Quisque a lectus pretium, sagittis augue in, fringilla risus....</a></p>
-								</div>
-								<!-- /blog-item-description -->
-								<!-- blog item - link -->
-								<div class="blog-item-link">
-									<a href="single.html" class="btn btn-default loadPost">See More</a>
-								</div>
-								<!-- /blog item - link -->
-							</div>
-							<!-- /blog item - infos -->
-						</div>
-					</div>
-					<!-- /blog-item -->
-
-					<!-- blog-item -->
-					<div class="blog-item">
-						<div class="blog-item-wrapper">
-							<!-- blog item thumbnail -->
-							<div class="blog-item-thumb">
-								<a href="single.html" class="loadPost"><img src="img/blog3.jpg" alt=""></a>
-							</div>
-							<!-- /blog item thumbnail -->
-							<!-- Blog item - infos -->
-							<div class="blog-item-infos">
-								<!-- blog-item-title -->
-								<div class="blog-item-title-wrapper">
-									<h2 class="blog-item-title title-border"><a href="single.html" class="loadPost">News of the week</a></h2>
-								</div>
-								<!-- /blog-item-title -->
-								<!-- blog item - description -->
-								<div class="blog-item-description">
-									<p><a href="single.html" class="loadPost">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales varius sagittis. Proin a arcu vitae turpis congue facilisis. Quisque a lectus pretium, sagittis augue in, fringilla risus....</a></p>
-								</div>
-								<!-- /blog-item-description -->
-								<!-- blog item - link -->
-								<div class="blog-item-link">
-									<a href="single.html" class="btn btn-default loadPost">See More</a>
-								</div>
-								<!-- /blog item - link -->
-							</div>
-							<!-- /blog item - infos -->
-						</div>
-					</div>
-					<!-- /blog-item -->
-
-					<!-- blog-item -->
-					<div class="blog-item">
-						<div class="blog-item-wrapper">
-							<!-- blog item thumbnail -->
-							<div class="blog-item-thumb">
-								<a href="single.html" class="loadPost"><img src="img/blog4.jpg" alt=""></a>
-							</div>
-							<!-- /blog item thumbnail -->
-							<!-- Blog item - infos -->
-							<div class="blog-item-infos">
-								<!-- blog-item-title -->
-								<div class="blog-item-title-wrapper">
-									<h2 class="blog-item-title title-border"><a href="single.html" class="loadPost">How to be a leader</a></h2>
-								</div>
-								<!-- /blog-item-title -->
-								<!-- blog item - description -->
-								<div class="blog-item-description">
-									<p><a href="single.html" class="loadPost">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sodales varius sagittis. Proin a arcu vitae turpis congue facilisis. Quisque a lectus pretium, sagittis augue in, fringilla risus....</a></p>
-								</div>
-								<!-- /blog-item-description -->
-								<!-- blog item - link -->
-								<div class="blog-item-link">
-									<a href="single.html" class="btn btn-default loadPost">See More</a>
-								</div>
-								<!-- /blog item - link -->
-							</div>
-							<!-- /blog item - infos -->
-						</div>
-					</div>
-					<!-- /blog-item -->
-
-					<!-- blog-item -->
-					<div class="blog-item">
-						<div class="blog-item-wrapper">
-							<!-- blog item thumbnail -->
-							<div class="blog-item-thumb">
-								<a href="single.html" class="loadPost"><img src="img/blog5.jpg" alt=""></a>
-							</div>
-							<!-- /blog item thumbnail -->
-							<!-- Blog item - infos -->
-							<div class="blog-item-infos">
-								<!-- blog-item-title -->
-								<div class="blog-item-title-wrapper">
-									<h2 class="blog-item-title title-border"><a href="single.html" class="loadPost">Tips to talk in public</a></h2>
-								</div>
-								<!-- /blog-item-title -->
-								<!-- blog item - description -->
-								<div class="blog-item-description">
-									<p><a href="single.html" class="loadPost">Designed by Norway-based practice Snhetta, in collaboration with local firm EHDD, the 10-story concrete structure will compliment SFMOMA’s original...</a></p>
-								</div>
-								<!-- /blog-item-description -->
-								<!-- blog item - link -->
-								<div class="blog-item-link">
-									<a href="single.html" class="btn btn-default loadPost">See More</a>
-								</div>
-								<!-- /blog item - link -->
-							</div>
-							<!-- /blog item - infos -->
-						</div>
-					</div>
-					<!-- /blog-item -->
-				</div>
-				 <!-- /BLOG POSTS -->
-				<!-- Pagination -->
-				<div class="section-pagination">
-					<div class="row">
-						<div class="col-xs-12">
-							<span class="pagination-numbers">
-								<a href="#">1</a>
-								<a href="#">2</a>
-								<a href="#">3</a>
-								<a href="#">4</a>
-								<a href="#">5</a>
-								<a href="#">6</a>
-							</span>
-						</div>
-					</div>
-				</div>
-				<!-- /Pagination -->
-			</div>
-		</div>
-		<!-- /SECTION: BLOG  -->
-
-		<!-- SECTION: BLOG SINGLE-->
-		<div class="section-vcardbody section-page section-page-single" id="page-blog-single">
-			<div class="section-blog-single">
-				<!-- Load the single.html content via AJAX -->
-				<div id="postHere"></div>
-				<!-- /Load the single.html content via AJAX -->
-			</div>
-		</div>
-		<!-- /SECTION: BLOG SINGLE  -->
-
-		<!-- SECTION: CONTACT-->
-		<div class="section-vcardbody section-page" id="page-contact">
-			<div class="section-contact">
-
-				<!-- Section title -->
-	            <h2 class="section-title">Contact</h2>
-	            <!-- /Section title -->
-             <div class="map">
-             <div class="map-overlay"></div>
-              <iframe width="600" height="450" frameborder="0" style="border:0"
-                                  <iframe width="500" height="400" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=mirpur%201&key=AIzaSyDOMHw1aW5jyEMLNBGb_m_1HanyqSDBQNs" allowfullscreen></iframe>
-          </div>
- <!-- Contact infos -->
-             <div class="contact-infos">
-             <h4 class="contact-subtitle-1"><i class="fa fa-map"></i>&nbsp;   Address</h4>
-             <p>Dhaka, Bangladesh</p>
-             <h4 class="contact-subtitle-1"><i class="fa fa-phone-square"></i>&nbsp; Phone</h4>
-             <p>+8801672024428</p>
-             <h4 class="contact-subtitle-1"><i class="fa fa-envelope"></i>&nbsp; Email</h4>
-             <p>Bswjtbanik@gmail.com</p>
-
-            </div>
-                <!-- /Contact infos -->
-
-	            <!-- Contact form -->
-	            <h4 class="contact-subtitle-1"><i class="fa fa-paper-plane-o"></i>&nbsp; Send Me a Message</h4>
-		        <form id="contactForm" method="post" class="form">
-		            <!-- Form Field -->
-		            <div class="form-group">
-		            	<input class="form-control required" id="name" name="name" placeholder="Name" type="text" required />
-		            </div>
-		            <!-- /Form Field -->
-		            <!-- Form Field -->
-		            <div class="form-group">
-		            	<input class="form-control required" id="email" name="email" placeholder="Email" type="email" required />
-		            </div>
-		            <!-- /Form Field -->
-		            <!-- Form Field -->
-		            <div class="form-group">
-		            	<input class="form-control required" id="subject" type="text" name="subject" placeholder="Subject" required>
-		            </div>
-		            <!-- /Form Field -->
-		            <!-- Form Field -->
-		            <div class="form-group">
-		            	<textarea class="form-control required" id="message" name="message" placeholder="Message" rows="5" required></textarea>
-		            </div>
-		            <!-- /Form Field -->
-		            <!-- Form Field -->
-		            <div class="form-group">
-		            	<input type="submit" class="btn btn-default form-send" value="Send!">
-		            </div>
-		            <!-- /Form Field -->
-		        </form>
-		        <!-- /Contact Form -->
-
-			</div>
-		</div>
-		<!-- /SECTION: CONTACT  -->
-	</div>
-
 </section>
-<!-- /Main Content
-================================================== -->
 
-<!-- Contact Form - Ajax Messages
-========================================================= -->
-<!-- Form Success -->
-<div class="form-result modal-wrap" id="contactSuccess">
-  <div class="modal-bg"></div>
-  <div class="modal-content">
-    <h4 class="modal-title"><i class="fa fa-check-circle"></i> Success!</h4>
-    <p>Your message has been sent to us.</p>
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">// 01 — about</div>
+    <h2 class="section-title">Who I am</h2>
+    <div class="about-grid fade-up">
+      <div class="about-text">
+        <p>I'm a Senior iOS Developer based in <strong>Dhaka, Bangladesh</strong>, currently working at <strong>GoZayaan</strong> — a travel-tech company serving users across Bangladesh, Singapore, and Malaysia.</p>
+        <p>I specialize in building <strong>secure, scalable mobile experiences</strong> — from biometric authentication using Secure Enclave to multi-gateway payment integrations and real-time flight booking systems.</p>
+        <p>Before GoZayaan, I spent 4 years at <strong>CIBL Technology Consultants</strong>, leading iOS development for major Bangladeshi banking apps including EBL Skybanking, NRBC Planet, and NBL iPower — serving hundreds of thousands of daily users.</p>
+        <p>I love clean architecture, performance-first thinking, and shipping apps that just <em>work</em>.</p>
+      </div>
+      <div class="tech-stack">
+        <div class="stack-title">// primary stack</div>
+        <div class="tags" style="margin-bottom:1.5rem;">
+          <span class="tag swift">Swift</span>
+          <span class="tag swift">UIKit</span>
+          <span class="tag swift">SwiftUI</span>
+          <span class="tag swift">Combine</span>
+          <span class="tag">MVVM</span>
+          <span class="tag">Coordinator</span>
+          <span class="tag blue">Xcode</span>
+          <span class="tag blue">App Store Connect</span>
+          <span class="tag blue">TestFlight</span>
+        </div>
+        <div class="stack-title">// integrations</div>
+        <div class="tags" style="margin-bottom:1.5rem;">
+          <span class="tag">Alamofire</span>
+          <span class="tag">Adjust SDK</span>
+          <span class="tag">Freshchat</span>
+          <span class="tag">CleverTap</span>
+          <span class="tag">CocoaPods</span>
+          <span class="tag green">Secure Enclave</span>
+          <span class="tag green">ECDSA Auth</span>
+          <span class="tag">AES Encryption</span>
+        </div>
+        <div class="stack-title">// tools & workflow</div>
+        <div class="tags">
+          <span class="tag">Git</span>
+          <span class="tag">ClickUp</span>
+          <span class="tag">Agile/Scrum</span>
+          <span class="tag">Code Review</span>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-<!-- /Form Sucess -->
-<!-- form-error -->
-<div class="form-result modal-wrap" id="contactError">
-  <div class="modal-bg"></div>
-  <div class="modal-content">
-    <h4 class="modal-title"><i class="fa fa-times"></i> Error</h4>
-    <p>There was an error sending your message.</p>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="section-label">// 02 — experience</div>
+    <h2 class="section-title">Where I've worked</h2>
+    <p class="section-desc">8+ years across travel-tech, FinTech, and enterprise banking.</p>
+    <div class="timeline fade-up">
+
+      <div class="timeline-item">
+        <div class="timeline-dot">01</div>
+        <div class="timeline-body">
+          <div class="timeline-company">GoZayaan</div>
+          <div class="timeline-role">Senior Software Engineer — iOS App Developer</div>
+          <div class="timeline-period">Jul 2022 – Present · 4 yrs</div>
+          <ul class="timeline-points">
+            <li>Expanded app to Malaysia market with MYR currency, FPX, DuitNow, Touch n' Go & Cash 7-Eleven payment gateways</li>
+            <li>Implemented biometric ECDSA authentication via Secure Enclave (secp256r1) for enhanced security</li>
+            <li>Built deep link routing system using Adjust SDK and universal links with custom gozayaan:// scheme</li>
+            <li>Integrated Freshchat SDK with user identification, restore IDs, and tab bar badge support</li>
+            <li>Developed flight listing sort logic with direct-first and region-specific carrier priority for SG/MY</li>
+            <li>Managed multi-target Xcode builds (staging / dev / prod) with automated provisioning profiles</li>
+            <li>Led iOS hiring, take-home task design, and code reviews for the team</li>
+          </ul>
+          <div class="timeline-tech">
+            <span class="chip">Swift</span>
+            <span class="chip">UIKit</span>
+            <span class="chip">Combine</span>
+            <span class="chip">Adjust SDK</span>
+            <span class="chip">Freshchat</span>
+            <span class="chip">Secure Enclave</span>
+            <span class="chip">MVVM</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">02</div>
+        <div class="timeline-body">
+          <div class="timeline-company">CIBL Technology Consultants Limited</div>
+          <div class="timeline-role">iOS App Developer</div>
+          <div class="timeline-period">Aug 2018 – Jul 2022 · 4 yrs · Dhaka, Bangladesh</div>
+          <ul class="timeline-points">
+            <li>Built EBL Skybanking, NRBC Planet, NBL iPower, ShimantoBank & PrimeBank apps — serving 500k+ users</li>
+            <li>Designed MVVM + Coordinator architecture for clean, maintainable codebases across all projects</li>
+            <li>Implemented QR payments (BanglaQR), NPSB/BEFTN/RTGS transfers, FDR flows, and mobile recharge</li>
+            <li>Built AES/DHE encryption for secure API communication via Alamofire</li>
+            <li>Developed liveness check and biometric login for NRBC Planet</li>
+            <li>Added screen capture/recording protection and GPS security features</li>
+          </ul>
+          <div class="timeline-tech">
+            <span class="chip">Swift</span>
+            <span class="chip">UIKit</span>
+            <span class="chip">Alamofire</span>
+            <span class="chip">Core Data</span>
+            <span class="chip">AES Encryption</span>
+            <span class="chip">CocoaPods</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot">03</div>
+        <div class="timeline-body">
+          <div class="timeline-company">Codeboxr</div>
+          <div class="timeline-role">iOS Developer Intern</div>
+          <div class="timeline-period">Jan 2016 – Mar 2016 · 3 mos · Dhaka, Bangladesh</div>
+          <ul class="timeline-points">
+            <li>Assisted in iOS development projects, improved UI/UX features</li>
+            <li>Learned agile teamwork and collaborative development practices</li>
+          </ul>
+          <div class="timeline-tech">
+            <span class="chip">Swift</span>
+            <span class="chip">UIKit</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
-</div>
-<!-- /form-error -->
+</section>
 
-<!-- Contact Form - Ajax Messages
-========================================================= -->
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">// 03 — projects</div>
+    <h2 class="section-title">Apps I've built</h2>
+    <p class="section-desc">Production apps across travel-tech, fintech, and banking serving real users daily.</p>
+    <div class="projects-grid fade-up">
 
+      <div class="project-card">
+        <div class="project-icon" style="background:rgba(124,106,255,0.15);">✈️</div>
+        <div class="project-name">GoZayaan</div>
+        <div class="project-desc">Flight booking, hotel search, and travel experiences app. Includes biometric auth, deep linking, Adjust analytics, and CleverTap push notifications.</div>
+        <div class="project-market">🌏 BD · SG · MY</div>
+      </div>
 
-<!-- >> JS
-============================================================================== -->
+      <div class="project-card">
+        <div class="project-icon" style="background:rgba(56,189,248,0.12);">💸</div>
+        <div class="project-name">HomeTown</div>
+        <div class="project-desc">Remittance & flight booking app for Singapore and Malaysia expats. Features MYR support, DuitNow, FPX, Touch n' Go, KYC flow, and biometric ECDSA login.</div>
+        <div class="project-market">🌏 SG · MY</div>
+      </div>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="vendor/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<script src="vendor/validate.js"></script>
-<!-- Holder JS -->
-<script src="vendor/holder.js"></script>
-<!-- Modal box-->
-<script src="vendor/nivo-lightbox/nivo-lightbox.min.js"></script>
-<!-- /Modal Box -->
-<!-- Perfect ScrolBar -->
-<script src="vendor/perfect-scrollbar/js/min/perfect-scrollbar.jquery.min.js"></script>
-<!-- /Perfect ScrolBar -->
-<!-- Owl Caroulsel -->
-<script src="vendor/owl.carousel/owl-carousel/owl.carousel.js"></script>
-<!-- Google Maps -->
-<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<!-- Cross-browser -->
-<script src="vendor/cross-browser.js"></script>
-<!-- Main Scripts -->
-<script src="js/main.js"></script>
+      <div class="project-card">
+        <div class="project-icon" style="background:rgba(52,211,153,0.12);">🏦</div>
+        <div class="project-name">NRBC Planet</div>
+        <div class="project-desc">Enterprise banking app with liveness check, biometric login, PIN management, registration modes, and full fund transfer suite.</div>
+        <div class="project-market">🇧🇩 Bangladesh</div>
+      </div>
 
-<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-  <script src="vendor/html5shiv.js"></script>
-  <script src="vendor/respond.min.js"></script>
-<![endif]-->
-<!-- >> /JS
-============================================================================= -->
+      <div class="project-card">
+        <div class="project-icon" style="background:rgba(255,107,53,0.12);">📱</div>
+        <div class="project-name">NBL iPower</div>
+        <div class="project-desc">Full-featured banking app with BanglaQR payments, NPSB/BEFTN/RTGS transfers, FDR open/close, mobile recharge, and beneficiary management.</div>
+        <div class="project-market">🇧🇩 Bangladesh</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon" style="background:rgba(124,106,255,0.15);">🏧</div>
+        <div class="project-name">EBL Skybanking</div>
+        <div class="project-desc">Eastern Bank Limited's mobile banking app — full MVVM architecture, secure API encryption, and comprehensive retail banking features.</div>
+        <div class="project-market">🇧🇩 Bangladesh</div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-icon" style="background:rgba(56,189,248,0.12);">💳</div>
+        <div class="project-name">HomeTownLoan</div>
+        <div class="project-desc">Loan product app built with SwiftUI + UIKit hybrid architecture using Combine. Features deep link integration back to HomeTown on successful repayment.</div>
+        <div class="project-market">🌏 SG · MY</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">// 04 — skills</div>
+    <h2 class="section-title">What I work with</h2>
+    <p class="section-desc">A focused toolkit built through 8+ years of shipping real production apps.</p>
+    <div class="skills-grid fade-up">
+
+      <div class="skill-group">
+        <div class="skill-group-title">// languages</div>
+        <ul class="skill-list">
+          <li>Swift</li>
+          <li>Objective-C</li>
+          <li>Python (scripting)</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// frameworks</div>
+        <ul class="skill-list">
+          <li>UIKit</li>
+          <li>SwiftUI</li>
+          <li>Combine</li>
+          <li>Core Data</li>
+          <li>Foundation</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// architecture</div>
+        <ul class="skill-list">
+          <li>MVVM</li>
+          <li>Coordinator Pattern</li>
+          <li>Clean Architecture</li>
+          <li>Dependency Injection</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// security</div>
+        <ul class="skill-list">
+          <li>Secure Enclave</li>
+          <li>ECDSA / secp256r1</li>
+          <li>AES / DHE Encryption</li>
+          <li>Biometric Auth</li>
+          <li>Certificate Pinning</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// SDKs & tools</div>
+        <ul class="skill-list">
+          <li>Adjust SDK</li>
+          <li>Freshchat</li>
+          <li>CleverTap</li>
+          <li>Alamofire</li>
+          <li>CocoaPods</li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <div class="skill-group-title">// delivery</div>
+        <ul class="skill-list">
+          <li>App Store Connect</li>
+          <li>TestFlight</li>
+          <li>Multi-target Xcode</li>
+          <li>Git / GitHub</li>
+          <li>Agile / Scrum</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">// 05 — contact</div>
+    <h2 class="section-title">Let's connect</h2>
+    <div class="contact-card fade-up">
+      <p style="color:var(--muted); margin-bottom:0.5rem;">Open to senior iOS roles, consulting, and collaborations.</p>
+      <p style="color:var(--muted);">Based in Dhaka · Available remotely for SG & MY markets.</p>
+      <div class="contact-links">
+        <a href="mailto:your@email.com" class="contact-link">📧 Email me</a>
+        <a href="https://linkedin.com/in/biswajit-banik-1b418972" target="_blank" class="contact-link">💼 LinkedIn</a>
+        <a href="https://github.com/yourusername" target="_blank" class="contact-link">🐙 GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Built by Biswajit Banik · 2024 · Swift by day, HTML by night 🚀</p>
+</footer>
+
+<script>
+  // Fade-up on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
